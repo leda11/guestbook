@@ -6,7 +6,7 @@
 /**
  * Add static entries in the template file. 
  */
-$ha->data['header'] = '<h1>Header: Handy</h1>';
+$ha->data['header'] = '<h1>Welcome to Handy</h1>';
 $ha->data['footer'] = <<<EOD
 <p>Footer: &copy; Handy: by Lena Dackhammar </p>
 
@@ -23,9 +23,9 @@ $ha->data['footer'] = <<<EOD
 <a href="http://jsperf.com/">js-perf</a>
 <a href="http://www.workwithcolor.com/hsl-color-schemer-01.htm">colors</a>
 <a href="http://dbwebb.se/style">style</a>
-</p>
+<br/>
 
-<p>Docs:
+Docs:
 <a href="http://www.w3.org/2009/cheatsheet">cheatsheet</a>
 <a href="http://dev.w3.org/html5/spec/spec.html">html5</a>
 <a href="http://www.w3.org/TR/CSS2">css2</a>

@@ -38,19 +38,28 @@ class CRequest {
       $scriptPart = dirname($scriptName);
     }
     
-    $query = trim(substr($requestUri, strlen(rtrim($scriptPart, '/'))), '/');   
+    $query = trim(substr($requestUri, strlen(rtrim($scriptPart, '/'))), '/');  
+    //NY mom03 session - query after base_url, except if optional querystring
+    $pos = strcspn($query, '?');
+    if($pos){
+    	$query = substr($query, 0 , $pos);
+    }
+    
     // Check if this looks like a querystring approach link
     if(substr($query, 0, 1) === '?' && isset($_GET['q'])) {
       $query = trim($_GET['q']);
     }
+    //LD eget kanske inte behövs
+    /*if(substr($query, 0, 1) === '?' && isset($_POST['q'])) {
+      $query = trim($_POST['q']);
+    }
+    */
     $splits = explode('/', $query);
     // --------------------------------------------------------------------
     
    // $query =substr($request_uri, strlen(rtrim(dirname($scriptName), '/')));//ändrad (05)
     // 05 05 $splits = explode('/', trim($query, '/'));
-    /*
-    $query = substr($_SERVER['REQUEST_URI'], strlen(rtrim(dirname($_SERVER['SCRIPT_NAME']), '/')));
-    */
+  
     // Set controller, method and arguments
     $controller =  !empty($splits[0]) ? $splits[0] : 'index';
     $method       =  !empty($splits[1]) ? $splits[1] : 'index';
@@ -77,6 +86,7 @@ class CRequest {
   
    /**
    * Get the url to the current page. (05 fixa base_url)
+   * Handle querys mom03 part 2
    */
   public function GetCurrentUrl() {
     $url = "http";

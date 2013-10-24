@@ -5,7 +5,22 @@
 * @package HandyCore
 */
 class CRequest {
-
+   
+   /**
+   * variables
+   */
+   public $cleanUrl;
+   public $querystringUrl;
+  
+  /**
+   * Contstruct that takes a urlType as an argument
+   * @param boolean $urlType integer
+   */   
+   public function __construct($urlType=0) {
+		$this->cleanUrl = $urlType= 1 ? true : false;
+		$this->querystringUrl = $urlType= 2 ? true : false;
+    }
+  
   /**
    * Init the object by parsing the current url request.
    */

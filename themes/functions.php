@@ -25,9 +25,10 @@ function get_debug() {
 	
 		$ha = CHandy::Instance();
 		if( $ha->config['debug']== 0 ){	
-		$html = "<h2>Debuginformation</h2><hr><p>The content of the config array:</p><pre>" . htmlentities(print_r($ha->config, true)) . "</pre>";
+		$html = "<h2>Debuginformation</h2><hr><p>The content of Handy config array:</p><pre>" . htmlentities(print_r($ha->config, true)) . "</pre>";
 		$html .= "<hr><p>The content of the data array:</p><pre>" . htmlentities(print_r($ha->data, true)) . "</pre>";
 		$html .= "<hr><p>The content of the request array:</p><pre>" . htmlentities(print_r($ha->request, true)) . "</pre>";
+
 		return $html;
 	}else{
 	return $html='';

@@ -27,5 +27,5 @@ spl_autoload_register('autoload');
 * Helper, wrap html_entites with correct character encoding mom03
 */
 function htmlent($str, $flags = ENT_COMPAT) {
-  return htmlentities($str, $flags, CLydia::Instance()->config['character_encoding']);
+  return htmlentities($str, $flags, CHandy::Instance()->config['character_encoding']);
 }

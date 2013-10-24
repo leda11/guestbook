@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Main class for Lydia, holds everything.
+* Main class for Handy, holds everything.
 *
 * @package HandyCore
 */
@@ -16,7 +16,11 @@ class CHandy implements ISingleton {
       // include the site specific config.php and create a ref to $ha to be used by site/config.php
       $ha = &$this;
       require(HANDY_SITE_PATH.'/config.php');
-   }
+      
+      //Start Session
+      session_name($this->config['session_name']);
+      session_start();
+  }
    
 //..............................................................................
    
@@ -44,19 +48,12 @@ class CHandy implements ISingleton {
     // part in fixing base_url mom05
     $this->request = new CRequest();
     $this->request->Init($this->config['base_url']);
-        
-    // Step 1
-    // Take current url and divide it in controller, method and parameters
-    // gör ny egen klass för detta CRequest.php
-    //$this->request = new CRequest();
-    //this->request->Init();
+          
     $controller = $this->request->controller;
     $method     = $this->request->method;
     $formattedMethod = str_replace(array('_', '-'), '', $method);//test funkar det mom03
-
     $arguments  = $this->request->arguments;                       
 
-    // Step 2
     // Is the controller enabled in config.php?
     $controllerExists    = isset($this->config['controllers'][$controller]);
     $controllerEnabled    = false;
@@ -68,6 +65,7 @@ class CHandy implements ISingleton {
       $className            = $this->config['controllers'][$controller]['class'];
       $classExists          = class_exists($className);
     }
+    
     // Step 3
     // Check if there is a callable method in the controller class, if then call it
     // Anropa med PHP reflection
@@ -78,6 +76,7 @@ class CHandy implements ISingleton {
         if($rc->hasMethod($formattedMethod)) {
           $controllerObj = $rc->newInstance();
           $methodObj = $rc->getMethod($formattedMethod);
+         
           $methodObj->invokeArgs($controllerObj, $arguments);
         } else {
           die("404. " . get_class() . ' error: Controller does not contain method.');
