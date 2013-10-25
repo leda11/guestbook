@@ -45,6 +45,7 @@ $ha->config['character_encoding'] = 'UTF-8';
 */
 $ha->config['language'] = 'en';
 
+$ha->config['debug']= 0;
 /**
 * Define the controllers, their classname and enable/disable them.
 *
@@ -57,6 +58,7 @@ $ha->config['language'] = 'en';
 $ha->config['controllers'] = array(
   'index'     => array('enabled' => true,'class' => 'CCIndex'),
   'developer' => array('enabled' => true, 'class' => 'CCDeveloper'),
+  'guestbook' => array('enabled' => true, 'class' => 'CCGuestbook'),
 );
 
 /*

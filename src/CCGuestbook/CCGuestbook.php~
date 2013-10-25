@@ -21,10 +21,7 @@
       }
      
 //------------------------------------------------------------------------------
-      
-
-
-	/**
+      /**
        * Implementing interface IController. All controllers must have an index action.
        */
       public function Index() {   
@@ -39,7 +36,7 @@
           <p>      
             <input type='submit' name='doAdd' value='Add message' />
             <input type='submit' name='doClear' value='Clear all messages' />
-            <input type='submit' name='doCreate' value='Skapa databasen' />
+            <input type='submit' name='doCreat' value='Skapa databasen' />
            </p>
          </form>
       ";
@@ -48,17 +45,12 @@
         $this->data['main'] = $this->pageHeader . $this->pageForm . $this->pageMessages;
        
         // Show added messages 
-        $comments = $this->ReadAllFromDatabase();
-        foreach ($comments as $val){
-        	$this->data['main'] .= "<div id='comment'><p>At: {$val['created']}</p><p>{$val['entry']}</p></div>\n";
-        }
-      /*
       if(isset($_SESSION['guestbook'])) {
       	  
       	  foreach($_SESSION['guestbook'] as $val) {
       	  	  $this->data['main'] .= "<div id='comment'><p>At: {$val['time']}</p><p>{$val['entry']}</p></div>\n";
           }
-      }*/
+      }
 }
 //------------------------------------------------------------------------------
       /**
@@ -78,8 +70,7 @@
         header('Location: ' . $this->request->CreateUrl('guestbook'));
       }
 //------------------------------------------------------------------------------
-      private function CreateDatabase() {
-      }	  
+      
 /*      public function Add() {   
       	    
         if(isset($_POST['doAdd'])) {

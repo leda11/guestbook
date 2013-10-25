@@ -4,7 +4,7 @@
 *
 */
 
-/*
+/**
 * Set level of error reporting
 */
 error_reporting(-1);
@@ -25,12 +25,17 @@ $ha->config['url_type'] = 1;
 */
 $ha->config['base_url'] = null;
 
-/*
+/**
 * Define session name
 */
 $ha->config['session_name'] = preg_replace('/[:\.\/-_]/', '', $_SERVER["SERVER_NAME"]);
 
-/*
+/**
+* Set database(s).
+*/
+$ha->config['database'][0]['dsn'] = 'sqlite:' . HANDY_SITE_PATH . '/data/.ht.sqlite';
+
+/**
 * Define server timezone
 */
 $ha->config['timezone'] = 'Europe/Stockholm';
@@ -61,7 +66,7 @@ $ha->config['controllers'] = array(
   'guestbook' => array('enabled' => true, 'class' => 'CCGuestbook'),
 );
 
-/*
+/**
 * Settings for the theme.
 */
 $ha->config['theme'] = array(

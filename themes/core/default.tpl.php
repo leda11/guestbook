@@ -17,6 +17,7 @@
     <?=$footer?> 
   </div>
     <?=get_debug()?>
+    
   </div>
 
 </body>
