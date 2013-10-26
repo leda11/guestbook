@@ -22,8 +22,6 @@
      
 //------------------------------------------------------------------------------
       
-
-
 	/**
        * Implementing interface IController. All controllers must have an index action.
        */
@@ -48,7 +46,7 @@
         $this->data['main'] = $this->pageHeader . $this->pageForm . $this->pageMessages;
        
         // Show added messages 
-        $comments = $this->ReadAllFromDatabase();
+        $comments = $this->ReadAllFromDatabase();// calls ExecuteSelectQueryAndFetchAll
         foreach ($comments as $val){
         	$this->data['main'] .= "<div id='comment'><p>At: {$val['created']}</p><p>{$val['entry']}</p></div>\n";
         }
@@ -60,26 +58,48 @@
           }
       }*/
 }
+
+//------------------------------------------------------------------------------
+      /**
+       * Save a new entry to database.
+       */
+      private function CreateTableInDatabase() {
+        try {
+          $this->db->ExecuteQuery("CREATE TABLE IF NOT EXISTS Guestbook (id INTEGER PRIMARY KEY, entry TEXT, created DATETIME default (datetime('now')));");
+        } catch(Exception$e) {
+          die("$e<br/>Failed to open database: " . $this->config['database'][0]['dsn']);
+        }
+      }
+/*      private function CreateTableInDatabase() {
+        try {
+          $db = new PDO($this->config['database'][0]['dsn']);
+          $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+     
+          $stmt = $db->prepare("CREATE TABLE IF NOT EXISTS Guestbook (id INTEGER PRIMARY KEY, entry TEXT, created DATETIME default (datetime('now')));");
+          $stmt->execute();
+        } catch(Exception$e) {
+          die("Failed to open database: " . $this->config['database'][0]['dsn'] . "</br>" . $e);
+        }
+      }
+*/
 //------------------------------------------------------------------------------
       /**
        * Handle posts from the form and take appropriate action.
        */
       public function Handler() {
         if(isset($_POST['doAdd'])) {
-          $this->SaveNewToDatabase(strip_tags($_POST['newEntry']));//SaveNewToDatabase() ny metod
-          //$dataposts = ReadAllFromDatabase();// ett resultset från databasen
+          $this->SaveNewToDatabase(strip_tags($_POST['newEntry']));//calls ExecuteQuery
         }
-        elseif(isset($_POST['doClear'])) {
+        elseif(isset($_POST['doClear'])) { // calls ExecuteQuery
           $this->DeleteAllFromDatabase();
-        }           
+        }        
         elseif(isset($_POST['doCreate'])) {
           $this->CreateTableInDatabase();
         }           
         header('Location: ' . $this->request->CreateUrl('guestbook'));
       }
 //------------------------------------------------------------------------------
-      private function CreateDatabase() {
-      }	  
+        
 /*      public function Add() {   
       	    
         if(isset($_POST['doAdd'])) {
@@ -94,25 +114,19 @@
         exit();
       }
  */
-//------------------------------------------------------------------------------     
+
+//------------------------------------------------------------------------------
       /**
        * Save a new entry to database.
        */
-      private function CreateTableInDatabase() {
-        try {
-          $db = new PDO($this->config['database'][0]['dsn']);
-          $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-     
-          $stmt = $db->prepare("CREATE TABLE IF NOT EXISTS Guestbook (id INTEGER PRIMARY KEY, entry TEXT, created DATETIME default (datetime('now')));");
-          $stmt->execute();
-        } catch(Exception$e) {
-          die("Failed to open database: " . $this->config['database'][0]['dsn'] . "</br>" . $e);
+      private function SaveNewToDatabase($entry) {
+        $this->db->ExecuteQuery('INSERT INTO Guestbook (entry) VALUES (?);', array($entry));
+        if($this->db->rowCount() != 1) {
+          echo 'Failed to insert new guestbook item into database.';
         }
       }
-//------------------------------------------------------------------------------
-       /**
-       * Save a new entry to database.
-       */
+      
+      /*
       private function SaveNewToDatabase($entry) {
         $db = new PDO($this->config['database'][0]['dsn']);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
@@ -122,24 +136,37 @@
         if($stmt->rowCount() != 1) {
           die('Failed to insert new guestbook item into database.');
         }
-      }
+      }*/
 //------------------------------------------------------------------------------
-
-       /**
+      /**
        * Delete all entries from the database.
        */
+      private function DeleteAllFromDatabase() {
+        $this->db->ExecuteQuery('DELETE FROM Guestbook;');
+      }
+      
+       /*
       private function DeleteAllFromDatabase() {
         $db = new PDO($this->config['database'][0]['dsn']);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
         $stmt = $db->prepare('DELETE FROM Guestbook;');
         $stmt->execute();
-      }
+      }*/
  //------------------------------------------------------------------------------
- 
-      /**
+     /**
        * Read all entries from the database.
        */
+      private function ReadAllFromDatabase() {
+        try {
+          $this->db->SetAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          return $this->db->ExecuteSelectQueryAndFetchAll('SELECT * FROM Guestbook ORDER BY id DESC;');
+        } catch(Exception $e) {
+          return array();   
+        }
+      }
+      
+      /*
       private function ReadAllFromDatabase() {
         try {
           $db = new PDO($this->config['database'][0]['dsn']);
@@ -152,7 +179,7 @@
         } catch(Exception $e) {
           return array();
         }
-      }
+      }*/
     } 
     
 

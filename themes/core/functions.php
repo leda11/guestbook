@@ -34,7 +34,7 @@ Docs:
 <a href="http://www.sqlite.org/lang.html">sqlite</a>
 <a href="http://www.blueprintcss.org/">blueprint</a>
 </p>
-
+<hr>
 EOD;
 
 

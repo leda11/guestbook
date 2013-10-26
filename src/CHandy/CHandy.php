@@ -17,6 +17,10 @@ class CHandy implements ISingleton {
       $ha = &$this;
       require(HANDY_SITE_PATH.'/config.php');
       
+      // create data ase 
+      if(isset($this->config['database'][0]['dsn'])) {
+        $this->db = new CMDatabase($this->config['database'][0]['dsn']);
+     }
       //Start Session
       session_name($this->config['session_name']);
       session_start();
@@ -26,7 +30,7 @@ class CHandy implements ISingleton {
    
    /**
     * Singleton pattern. Get the instance of the latest created object or create a new one.
-    * @return CLydia The instance of this class.
+    * @return CHandy The instance of this class.
     */
    public static function Instance() {
       if(self::$instance == null) {

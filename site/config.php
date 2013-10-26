@@ -40,17 +40,28 @@ $ha->config['database'][0]['dsn'] = 'sqlite:' . HANDY_SITE_PATH . '/data/.ht.sql
 */
 $ha->config['timezone'] = 'Europe/Stockholm';
 
-/*
+/**
 * Define internal character encoding
 */
 $ha->config['character_encoding'] = 'UTF-8';
 
-/*
+/**
 * Define language
 */
 $ha->config['language'] = 'en';
 
-$ha->config['debug']= 0;
+
+/**
+ * Set what to show as debug or developer information in the get_debug() theme helper.
+*/
+    $ha->config['debug']['handy'] = false;
+    $ha->config['debug']['db-num-queries'] = true;
+    $ha->config['debug']['db-queries'] = true;
+    
+    //$ha->config['debug']= 0;
+
+
+
 /**
 * Define the controllers, their classname and enable/disable them.
 *
@@ -64,7 +75,10 @@ $ha->config['controllers'] = array(
   'index'     => array('enabled' => true,'class' => 'CCIndex'),
   'developer' => array('enabled' => true, 'class' => 'CCDeveloper'),
   'guestbook' => array('enabled' => true, 'class' => 'CCGuestbook'),
+  
 );
+
+
 
 /**
 * Settings for the theme.
