@@ -30,15 +30,15 @@ body{
 }
 
 #textInput {
-	width: 400px;
+	width: 500px;
 	height: 100px;
 }
 
 #comment{
 	background-color:#f6f6f6;
 	border:1px dotted #ccc;
-	margin-bottom:1em;
-	padding:0.5em;
+	margin-bottom:0.8em;
+	padding:0.4em;
 	font-size: 10px;
 }
 	

@@ -18,7 +18,15 @@ function base_url($url) {
 function current_url() {
   return CHandy::Instance()->request->current_url;
 }    
-    
+ 
+//-----------------------------------------------------------------------------    
+
+/**
+    * Render all views.
+    */
+    function render_views() {
+      return CHandy::Instance()->views->Render();
+    }
 //-----------------------------------------------------------------------------    
 
 /**
@@ -39,24 +47,5 @@ function current_url() {
       }   
       return $html;
     }
-/**
-* Print debuginformation from the framework.
-*/
-/*
-function get_debug() {
-		$html=null;
-		$ha = CHandy::Instance();
-		
-		if( $ha->config['debug']== 0 ){	
-		$html = "<h2>Debuginformation</h2><hr><p>The content of Handy config array:</p><pre>" . htmlentities(print_r($ha->config, true)) . "</pre>";
-		$html .= "<hr><p>The content of the data array:</p><pre>" . htmlentities(print_r($ha->data, true)) . "</pre>";
-		$html .= "<hr><p>The content of the request array:</p><pre>" . htmlentities(print_r($ha->request, true)) . "</pre>";
-		//$html .= "<hr><p>The content of the request array:</p><pre>" .$ha->config['debug']['db-num-queries'] = true;
 
-		return $html;
-	}else{
-	return $html='';
-	}
-*/
-	
 

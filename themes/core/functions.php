@@ -8,7 +8,7 @@
  */
 $ha->data['header'] = '<h1>Welcome to Handy</h1>';
 $ha->data['footer'] = <<<EOD
-<p>Footer: &copy; Handy: by Lena Dackhammar </p>
+<p>&copy; Handy: by Lena Dackhammar </p>
 
 <p>Tools: 
 <a href="http://validator.w3.org/check/referer">html5</a>

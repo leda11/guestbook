@@ -17,7 +17,10 @@ class CHandy implements ISingleton {
       $ha = &$this;
       require(HANDY_SITE_PATH.'/config.php');
       
-      // create data ase 
+     // Create a container for all views and theme data
+     $this->views = new CViewContainer();
+     
+     // create data base 
       if(isset($this->config['database'][0]['dsn'])) {
         $this->db = new CMDatabase($this->config['database'][0]['dsn']);
      }
@@ -119,8 +122,10 @@ class CHandy implements ISingleton {
     }
 
     // Extract $ha->data to own variables and handover to the template file
-    extract($this->data);     
-    include("{$themePath}/default.tpl.php");
-  }
+    extract($this->data);
+    extract($this->views->GetData());   
+    include("{$themePath}/default.tpl.php");    
   
+  }
+       
 }
