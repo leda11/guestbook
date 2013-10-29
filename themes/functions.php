@@ -37,15 +37,38 @@ function current_url() {
       
       $html = null;
       if(isset($ha->config['debug']['db-num-queries']) && $ha->config['debug']['db-num-queries'] && isset($ha->db)) {
-        $html .= "<p>Database made " . $ha->db->GetNumQueries() . " queries.</p>"; 
+      	  $flash = $ha->session->GetFlash('database_numQueries');
+      	  $flash = $flash ? "$flash + " : null;
+      	  $html .= "<p>db-num-queries: Database made $flash" . $ha->db->GetNumQueries() . " queries.</p>";
+      	  //$html .= "<p>Database made " . $ha->db->GetNumQueries() . " queries.</p>"; 
       }   	  
       if(isset($ha->config['debug']['db-queries']) && $ha->config['debug']['db-queries'] && isset($ha->db)) {
-         $html .= "<p>Database made the following queries.</p><pre>" . implode('<br/><br/>', $ha->db->GetQueries()) . "</pre>";
+      	  $html .= "<p>db-queries: Database made the following queries.</p><pre>" . implode('<br/><br/>', $ha->db->GetQueries()) . "</pre>";
       }   
       if(isset($ha->config['debug']['handy']) && $ha->config['debug']['handy']) {
         $html .= "<hr><h3>Debuginformation</h3><p>The content of CHandy:</p><pre>" . htmlent(print_r($ha, true)) . "</pre>";
-      }   
+      }  
+      if(isset($ha->config['debug']['session']) && $ha->config['debug']['session']){
+      	$html .= "<hr><h3>SESSION</h3><p>The content of CHandy->session:</p><pre>" . htmlent(print_r($ha->session, true)) . "</pre>";
+      	$html .= "<p>The content of \$_SESSION:</p><pre>" . htmlent(print_r($_SESSION, true)) . "</pre>";	  
+     
+      }      
       return $html;
     }
+//-----------------------------------------------------------------------------    
 
-
+    /**
+    * Get messages stored in flash-session.
+    */
+    function get_messages_from_session() {
+      $messages = ChANDY::Instance()->session->GetMessages();
+      $html = null;
+      if(!empty($messages)) {
+        foreach($messages as $val) {
+          $valid = array('info', 'notice', 'success', 'warning', 'error', 'alert');
+          $class = (in_array($val['type'], $valid)) ? $val['type'] : 'info';
+          $html .= "<div class='$class'>{$val['message']}</div>\n";
+        }
+      }
+      return $html;
+    }

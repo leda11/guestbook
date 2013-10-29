@@ -7,7 +7,7 @@
     class CCGuestbook extends CObject implements IController, IHasSQL {
 
       private $pageTitle = 'Handy my Guestbook';
- 
+      
      
 //------------------------------------------------------------------------------
       /**

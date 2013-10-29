@@ -30,6 +30,9 @@ $ha->config['base_url'] = null;
 */
 $ha->config['session_name'] = preg_replace('/[:\.\/-_]/', '', $_SERVER["SERVER_NAME"]);
 
+$ha->config['session_key']  = 'handy';
+
+
 /**
 * Set database(s).
 */
@@ -54,10 +57,11 @@ $ha->config['language'] = 'en';
 /**
  * Set what to show as debug or developer information in the get_debug() theme helper.
 */
-    $ha->config['debug']['handy'] = false;
+    $ha->config['debug']['handy'] = true;
     $ha->config['debug']['db-num-queries'] = true;
     $ha->config['debug']['db-queries'] = true;
-    
+    $ha->config['debug']['session'] = true;
+    $ha->config['debug']['timer'] = true;
     //$ha->config['debug']= 0;
 
 

@@ -24,9 +24,12 @@ class CHandy implements ISingleton {
       if(isset($this->config['database'][0]['dsn'])) {
         $this->db = new CMDatabase($this->config['database'][0]['dsn']);
      }
+     
       //Start Session
       session_name($this->config['session_name']);
       session_start();
+      $this->session = new CSession($this->config['session_key']);
+      $this->session->PopulateFromSession();
   }
    
 //..............................................................................

@@ -11,13 +11,15 @@
   <div id="header">
     <?=$header?>
   </div>
- <div id='wrap-main'>
-        <div id='main' role='main'>
-          <?=@$main?>
-          <?=render_views()?>
-        </div>
-      </div>   
   
+ <div id='wrap-main'>
+   <div id='main' role='main'>
+        <?=get_messages_from_session()?>
+        <?=@$main?>
+        <?=render_views()?>
+    </div>
+ </div>   
+     
   <div id="footer">
     <?=$footer?> 
      <?=get_debug()?>
