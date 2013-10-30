@@ -12,6 +12,7 @@ class CObject {
    public $db;
    public $views;
    public $session;
+  // public $model:
    
    /**
     * Constructor
@@ -24,6 +25,7 @@ class CObject {
     $this->db 		= &$ha->db;
     $this->views 	= &$ha->views;
     $this->session	=&$ha->session;
+   // $this->model = &$ha->model;
   }
 /**
     * Redirect to another url and store the session

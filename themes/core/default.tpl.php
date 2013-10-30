@@ -7,11 +7,15 @@
 </head>
 
 <body>
-
-  <div id="header">
-    <?=$header?>
+<div id='wrap-header'>
+  <div id='header'>
+    <div id='banner'>
+     	<p class='site-title'><?=$header?></p>
+     	<p class='site-slogan'><?=$slogan?></p>
+    </div>
   </div>
-  
+ </div>
+ 
  <div id='wrap-main'>
    <div id='main' role='main'>
         <?=get_messages_from_session()?>

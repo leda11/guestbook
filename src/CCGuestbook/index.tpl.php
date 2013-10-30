@@ -1,9 +1,9 @@
-    <h1>Handy min Gästbok</h1>
-    <p><i>Kopplat till databas. SQL och html separerat.</i></p>
+    <h1>My Guestbook -example</h1>
+    <p><i>Please be welcome to put a comment in my guestbook!</i></p>
 
     <form action="<?=$formAction?>" method='post'> 
       <p>
-        <label>Kommentarer: <br/>
+        <label>Comments: <br/>
         <textarea name='newEntry' id='textInput'></textarea></label>
       </p>
       <p>
@@ -13,7 +13,7 @@
       </p>
     </form>
 
-    <h2>Gästbokens meddelande</h2>
+    <h2>Comments in the guestbook.</h2>
 
     <?php foreach($entries as $val):?>
     <div id='comment'>

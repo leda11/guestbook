@@ -6,7 +6,8 @@
 /**
  * Add static entries in the template file. 
  */
-$ha->data['header'] = '<h1>Welcome to Handy</h1>';
+$ha->data['header'] = 'HANDY';
+$ha->data['slogan'] = 'A PHP-based MVC-inspired CMF';
 $ha->data['footer'] = <<<EOD
 <p>&copy; Handy: by Lena Dackhammar </p>
 

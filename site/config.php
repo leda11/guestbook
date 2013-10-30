@@ -60,7 +60,7 @@ $ha->config['language'] = 'en';
     $ha->config['debug']['handy'] = false;
     $ha->config['debug']['db-num-queries'] = true;
     $ha->config['debug']['db-queries'] = true;
-    $ha->config['debug']['session'] = true;
+    $ha->config['debug']['session'] = false;
     $ha->config['debug']['timer'] = true;
     //$ha->config['debug']= 0;
 

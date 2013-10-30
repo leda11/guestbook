@@ -25,7 +25,9 @@ function current_url() {
     * Render all views.
     */
     function render_views() {
+    	
       return CHandy::Instance()->views->Render();
+      
     }
 //-----------------------------------------------------------------------------    
 
