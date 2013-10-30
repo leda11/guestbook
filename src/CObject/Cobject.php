@@ -25,5 +25,24 @@ class CObject {
     $this->views 	= &$ha->views;
     $this->session	=&$ha->session;
   }
+/**
+    * Redirect to another url and store the session
+    * called from CGuestbook->handler()
+    */
+    protected function RedirectTo($url) {
+    $ha = CHandy::Instance();
+    if(isset($ha->config['debug']['db-num-queries']) && $ha->config['debug']['db-num-queries'] && isset($ha->db)) {
+      $this->session->SetFlash('database_numQueries', $this->db->GetNumQueries());
+    }
+    if(isset($ha->config['debug']['db-queries']) && $ha->config['debug']['db-queries'] && isset($ha->db)) {
+      $this->session->SetFlash('database_queries', $this->db->GetQueries());
+    }
+    if(isset($ha->config['debug']['timer']) && $ha->config['debug']['timer']) {
+         $this->session->SetFlash('timer', $ha->timer);
+    }
+    $this->session->StoreInSession();
+    header('Location: ' . $this->request->CreateUrl($url));
+  }
+
 
 }

@@ -42,4 +42,19 @@ body{
 	font-size: 10px;
 }
 	
+/**
+* User feedback message wrappers.
+*/
+.error, .alert, .warning, .notice, .success, .info {
+padding: 0.8em; margin-bottom: 1em; border: 2px dotted #E592B1; }
+                                       
+.error, .alert { background: #E552E0; color: #fff;  }
+.notice, .warning { background: #E4C0F9; color: #fff;  }
+.success { background:#E6D7EA ; color: #fff;  }
+.info { background: #DBBAE2; color: #fff;  }
+.error a, .alert a { color: #8a1f11; }
+.notice a, .warning a { color: #514721; }
+.success a { color: #264409; }
+.info a { color: #fff; border-color: #B8D8BA;}
+
 	

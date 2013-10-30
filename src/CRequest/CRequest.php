@@ -55,8 +55,7 @@ class CRequest {
     }
     */
     $splits = explode('/', $query);
-    // --------------------------------------------------------------------
-    
+        
    // $query =substr($request_uri, strlen(rtrim(dirname($scriptName), '/')));//ändrad (05)
     // 05 05 $splits = explode('/', trim($query, '/'));
   
@@ -97,13 +96,44 @@ class CRequest {
     $url .= $_SERVER["SERVER_NAME"] . $serverPort . htmlspecialchars($_SERVER["REQUEST_URI"]);
     return $url;
   }
+//----------------------------------------------------------------------------
 
-  
+/**
+  * Create a url in the way it should be created.
+  * updated with Sessions between pages implemented
+  *
+  * @param $url string the relative url or the controller
+  * @param $method string the method to use, $url is then the controller or empty for current
+  */
+  public function CreateUrl($url=null, $method=null) {
+    // If fully qualified just leave it.
+                if(!empty($url) && (strpos($url, '://') || $url[0] == '/')) {
+                        return $url;
+                }
+    
+    // Get current controller if empty and method choosen
+    if(empty($url) && !empty($method)) {
+      $url = $this->controller;
+    }
+    
+    // Create url according to configured style
+    $prepend = $this->base_url;
+    if($this->cleanUrl) {
+      ;
+    } elseif ($this->querystringUrl) {
+      $prepend .= 'index.php?q=';
+    } else {
+      $prepend .= 'index.php/';
+    }
+    return $prepend . rtrim("$url/$method", '/');
+  }
+
+//----------------------------------------------------------------------------  
     /**
    * Create a url in the way it should be created. (06)
    *
    */
-  public function CreateUrl($url=null) {
+/*  public function CreateUrl($url=null) {
     $prepend = $this->base_url;
     if($this->cleanUrl) {
       ;
@@ -114,4 +144,5 @@ class CRequest {
     }
     return $prepend . rtrim($url, '/');
   }
+  */
 }

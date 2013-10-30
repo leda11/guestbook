@@ -1,6 +1,14 @@
     <?php
     /**
     * A guestbook controller as an example to show off some basic controller and model-stuff.
+    * METHODS
+    * Index()
+    * Handler()
+    * QL($key=null)
+    * CreateTableInDatabase()
+    * SaveNewToDatabase($entry)
+    * DeleteAllFromDatabase()
+    * ReadAllFromDatabase()
     *
     * @package HandyCore
     */
@@ -25,7 +33,7 @@
         $this->views->SetTitle($this->pageTitle);
         $this->views->AddInclude(__DIR__ . '/index.tpl.php', array(
           'entries'=>$this->ReadAllFromDatabase(),
-          'formAction'=>$this->request->CreateUrl('guestbook/handler')
+          'formAction'=>$this->request->CreateUrl('','handler')// ändrat från 'guestbook/handler'
         ));
       }
  
@@ -43,7 +51,9 @@
         elseif(isset($_POST['doCreate'])) {
           $this->CreateTableInDatabase();
         }           
-        header('Location: ' . $this->request->CreateUrl('guestbook'));
+        //header('Location: ' . $this->request->CreateUrl('guestbook')); borttaget 
+        //metod iCObject
+        $this->RedirectTo($this->request->CreateUrl($this->request->controller));
       }
 
 //------------------------------------------------------------------------------
@@ -71,6 +81,7 @@
       private function CreateTableInDatabase() {
         try {
         	$this->db->ExecuteQuery(self::SQL('create table guestbook'));
+        	$this->session->AddMessage('notice', 'The table is now created of it not existed before.');
         } catch(Exception$e) {
           die("$e<br/>Failed to open database: " . $this->config['database'][0]['dsn']);
         }
@@ -83,6 +94,7 @@
        */
       private function SaveNewToDatabase($entry) {
       	  $this->db->ExecuteQuery(self::SQL('insert into guestbook'), array($entry));
+      	  $this->session->AddMessage('success', 'The message is now added to the database.');
         if($this->db->rowCount() != 1) {
           echo 'Failed to insert new guestbook item into database.';
         }
@@ -96,7 +108,7 @@
       private function DeleteAllFromDatabase() {
         //$this->db->ExecuteQuery('DELETE FROM Guestbook;');
          $this->db->ExecuteQuery(self::SQL('delete from guestbook'));// removed return
-         $this->session->AddMessage('info', "Databasen är tömd på meddelanden");
+         $this->session->AddMessage('info', 'The database is now emptied from messages. ');
       }
  
  //------------------------------------------------------------------------------

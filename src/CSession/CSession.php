@@ -5,7 +5,6 @@
     * 
     * FUNCTIONS
     * function StoreInSession()
-    * function StoreInSession()
     * function __get($key)
     * function SetFlash($key, $value)
     * function GetFlash($key)
@@ -23,11 +22,13 @@
    		private $key;
    		private $data = array();
    		private $flash = null;
-    		
+//------------------------------------------------------------------------------
+
     	/**
        * Store values into session.
        * $this->key sätts i konstruktorn och är konfigurerbar via en rad i site/config.php
-       * $ha>config['session_key']  = 'handy';
+       * $ha->config['session_key']  = 'handy';
+       * Anropas från CObject-> RedirectTo($url)
        */
       
       public function StoreInSession() {
@@ -52,6 +53,7 @@
 
 	/**
        * Set flash values, to be remembered one page request
+       * used in CObject->RedirectTo($url)
        */
       public function SetFlash($key, $value) {
         $this->data['flash'][$key] = $value;
